@@ -1,4 +1,4 @@
-package com.github.yuenwk;
+package io.github.yuenwk;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.text.StringSubstitutor;
@@ -40,7 +40,7 @@ public class TemplateFileMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        getLog().info("====>通过 " + fromTemplate.getName() + " 模板生成：" + toFile.getName());
+        getLog().info("====> Generate " + toFile.getName() + " from " + fromTemplate.getName() + " template start ... ");
 
         try {
             templateValues.putIfAbsent("version", project.getVersion());
@@ -52,12 +52,11 @@ public class TemplateFileMojo extends AbstractMojo {
 
             FileUtils.writeStringToFile(toFile, content, Charset.defaultCharset());
 
-            getLog().info(toFile.getName() + " <=== 生成成功");
+            getLog().info(toFile.getName() + " <=== Generate successfully !");
         } catch (IOException e) {
+            getLog().error(toFile.getName() + " <=== Generation failure !");
             throw new RuntimeException(e);
         }
-
     }
-
 
 }
